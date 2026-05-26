@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "berryglow",
+	"version": "${version}",
+	"name": "BerryGlow",
+	"description": "Eating a glow berry gives you the Glowing effect for 5 seconds.",
+	"authors": [
+		"icy"
+	],
+	"contact": {},
+	"license": "CC0-1.0",
+	"icon": "assets/berryglow/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.berryglow.BerryGlow"
+		],
+		"client": [
+			"com.berryglow.client.BerryGlowClient"
+		]
+	},
+	"mixins": [
+		"berryglow.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": ">=26.1 <26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
