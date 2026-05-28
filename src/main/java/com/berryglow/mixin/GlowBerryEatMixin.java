@@ -4,12 +4,11 @@ import com.berryglow.BerryGlow;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // 1.21.2+ reworked eating into the Consumable component system, so the old
 // Item.finishUsingItem hook is gone. We instead hook the entity that finishes
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public class GlowBerryEatMixin {
 	@Inject(method = "completeUsingItem", at = @At("HEAD"))
-	private void berryglow$applyGlowOnEat(CallbackInfoReturnable<ItemStack> cir) {
+	private void berryglow$applyGlowOnEat(CallbackInfo ci) {
 		LivingEntity self = (LivingEntity) (Object) this;
 
 		if (self.level().isClientSide()) {
