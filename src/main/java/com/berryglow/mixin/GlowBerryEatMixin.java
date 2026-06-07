@@ -23,7 +23,7 @@ public class GlowBerryEatMixin {
 		}
 
 		if (stack.is(Items.GLOW_BERRIES)) {
-			entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, BerryGlow.GLOW_DURATION_TICKS));
+			entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, BerryGlow.GLOW_BERRY_DURATION_TICKS));
 		}
 	}
 }
