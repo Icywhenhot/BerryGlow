@@ -22,8 +22,12 @@ public class GlowBerryEatMixin {
 			return;
 		}
 
+		if (!BerryGlow.CONFIG.enableGlowBerryEffect()) {
+			return;
+		}
+
 		if (stack.is(Items.GLOW_BERRIES)) {
-			entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, BerryGlow.GLOW_BERRY_DURATION_TICKS));
+			entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, BerryGlow.getGlowBerryDurationTicks()));
 		}
 	}
 }
