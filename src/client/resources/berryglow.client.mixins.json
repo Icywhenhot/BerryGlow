@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.berryglow.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"SelectItemModelPropertiesAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
