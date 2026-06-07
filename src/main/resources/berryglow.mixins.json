@@ -3,7 +3,8 @@
 	"package": "com.berryglow.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"GlowBerryEatMixin"
+		"GlowBerryEatMixin",
+		"TippedArrowGlowingExclusionMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
