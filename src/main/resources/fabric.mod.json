@@ -3,7 +3,7 @@
 	"id": "berryglow",
 	"version": "${version}",
 	"name": "BerryGlow",
-	"description": "Eating a glow berry gives you the Glowing effect for 5 seconds.",
+	"description": "Glow berries can make you glow, brew glowing potions, and craft spectral arrows.",
 	"authors": [
 		"icy"
 	],
