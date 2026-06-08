@@ -30,8 +30,12 @@ public class BerryGlow implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	// Minecraft runs at 20 ticks per second.
-	public static final int GLOWING_POTION_DURATION_TICKS = 3 * 60 * 20;
-	public static final int LONG_GLOWING_POTION_DURATION_TICKS = 8 * 60 * 20;
+	public static final int GLOWING_POTION_DURATION_TICKS = 90 * 20; // 1.5 minutes
+	public static final int LONG_GLOWING_POTION_DURATION_TICKS = 4 * 60 * 20; // 4 minutes
+
+	// Vanilla's GLOWING effect tints the broken splash/lingering particles a dull
+	// olive-yellow. Override it with a bright yellow so dropped potions read clearly.
+	public static final int GLOWING_PARTICLE_COLOR = 0xFFFF00;
 
 	public static final BerryGlowConfig CONFIG = BerryGlowConfig.load(LOGGER, MOD_ID);
 
@@ -67,6 +71,10 @@ public class BerryGlow implements ModInitializer {
 		return CONFIG.glowBerryDurationSeconds() * 20;
 	}
 
+	public static boolean isGlowingPotion(PotionContents potionContents) {
+		return potionContents.is(GLOWING_POTION) || potionContents.is(LONG_GLOWING_POTION);
+	}
+
 	private static boolean isGlowingTippedArrow(ItemStack stack) {
 		if (!stack.is(Items.TIPPED_ARROW)) {
 			return false;
@@ -77,7 +85,7 @@ public class BerryGlow implements ModInitializer {
 			return false;
 		}
 
-		return potionContents.is(GLOWING_POTION) || potionContents.is(LONG_GLOWING_POTION);
+		return isGlowingPotion(potionContents);
 	}
 
 	private static Holder.Reference<Potion> registerPotion(String id, int durationTicks) {
