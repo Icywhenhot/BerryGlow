@@ -1,14 +1,19 @@
 package com.berryglow.config;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Properties;
 
 public record BerryGlowConfig(
 	boolean enableGlowBerryEffect,
@@ -21,23 +26,28 @@ public record BerryGlowConfig(
 	private static final boolean DEFAULT_ENABLE_GLOWING_POTIONS = true;
 	private static final boolean DEFAULT_ENABLE_GLOWING_SPECTRAL_ARROWS = true;
 
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
 	public static BerryGlowConfig load(Logger logger, String modId) {
-		Path configPath = FabricLoader.getInstance().getConfigDir().resolve(modId + ".properties");
-		Properties properties = new Properties();
+		Path configPath = FabricLoader.getInstance().getConfigDir().resolve(modId + ".json");
+		JsonObject json = new JsonObject();
 
 		if (Files.exists(configPath)) {
-			try (InputStream inputStream = Files.newInputStream(configPath)) {
-				properties.load(inputStream);
-			} catch (IOException exception) {
+			try (Reader reader = Files.newBufferedReader(configPath)) {
+				JsonElement parsed = JsonParser.parseReader(reader);
+				if (parsed != null && parsed.isJsonObject()) {
+					json = parsed.getAsJsonObject();
+				}
+			} catch (IOException | JsonParseException exception) {
 				logger.warn("Failed to read config at {}", configPath, exception);
 			}
 		}
 
 		BerryGlowConfig config = new BerryGlowConfig(
-			getBoolean(properties, "enableGlowBerryEffect", DEFAULT_ENABLE_GLOW_BERRY_EFFECT),
-			getPositiveInt(properties, "glowBerryDurationSeconds", DEFAULT_GLOW_BERRY_DURATION_SECONDS),
-			getBoolean(properties, "enableGlowingPotions", DEFAULT_ENABLE_GLOWING_POTIONS),
-			getBoolean(properties, "enableGlowingSpectralArrows", DEFAULT_ENABLE_GLOWING_SPECTRAL_ARROWS)
+			getBoolean(json, "enableGlowBerryEffect", DEFAULT_ENABLE_GLOW_BERRY_EFFECT),
+			getPositiveInt(json, "glowBerryDurationSeconds", DEFAULT_GLOW_BERRY_DURATION_SECONDS),
+			getBoolean(json, "enableGlowingPotions", DEFAULT_ENABLE_GLOWING_POTIONS),
+			getBoolean(json, "enableGlowingSpectralArrows", DEFAULT_ENABLE_GLOWING_SPECTRAL_ARROWS)
 		);
 
 		writeDefaults(configPath, config, logger);
@@ -45,36 +55,37 @@ public record BerryGlowConfig(
 	}
 
 	private static void writeDefaults(Path configPath, BerryGlowConfig config, Logger logger) {
-		Properties properties = new Properties();
-		properties.setProperty("enableGlowBerryEffect", Boolean.toString(config.enableGlowBerryEffect()));
-		properties.setProperty("glowBerryDurationSeconds", Integer.toString(config.glowBerryDurationSeconds()));
-		properties.setProperty("enableGlowingPotions", Boolean.toString(config.enableGlowingPotions()));
-		properties.setProperty("enableGlowingSpectralArrows", Boolean.toString(config.enableGlowingSpectralArrows()));
+		JsonObject json = new JsonObject();
+		json.addProperty("enableGlowBerryEffect", config.enableGlowBerryEffect());
+		json.addProperty("glowBerryDurationSeconds", config.glowBerryDurationSeconds());
+		json.addProperty("enableGlowingPotions", config.enableGlowingPotions());
+		json.addProperty("enableGlowingSpectralArrows", config.enableGlowingSpectralArrows());
 
 		try {
 			Files.createDirectories(configPath.getParent());
-			try (OutputStream outputStream = Files.newOutputStream(configPath)) {
-				properties.store(outputStream, "BerryGlow configuration");
+			try (Writer writer = Files.newBufferedWriter(configPath)) {
+				GSON.toJson(json, writer);
 			}
 		} catch (IOException exception) {
 			logger.warn("Failed to write config at {}", configPath, exception);
 		}
 	}
 
-	private static boolean getBoolean(Properties properties, String key, boolean fallback) {
-		String value = properties.getProperty(key);
-		return value == null ? fallback : Boolean.parseBoolean(value);
+	private static boolean getBoolean(JsonObject json, String key, boolean fallback) {
+		if (!json.has(key) || !json.get(key).isJsonPrimitive()) {
+			return fallback;
+		}
+
+		return json.get(key).getAsBoolean();
 	}
 
-	private static int getPositiveInt(Properties properties, String key, int fallback) {
-		String value = properties.getProperty(key);
-
-		if (value == null) {
+	private static int getPositiveInt(JsonObject json, String key, int fallback) {
+		if (!json.has(key) || !json.get(key).isJsonPrimitive()) {
 			return fallback;
 		}
 
 		try {
-			return Math.max(0, Integer.parseInt(value));
+			return Math.max(0, json.get(key).getAsInt());
 		} catch (NumberFormatException exception) {
 			return fallback;
 		}
