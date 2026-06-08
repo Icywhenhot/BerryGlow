@@ -62,7 +62,7 @@ public class GlowingSpectralArrowRecipe extends CustomRecipe {
 		return BerryGlow.GLOWING_SPECTRAL_ARROW_RECIPE_SERIALIZER;
 	}
 
-	private static boolean isGlowingLingeringPotion(ItemStack stack) {
+	public static boolean isGlowingLingeringPotion(ItemStack stack) {
 		if (!stack.is(Items.LINGERING_POTION)) {
 			return false;
 		}
