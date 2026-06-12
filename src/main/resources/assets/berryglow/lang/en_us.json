@@ -4,5 +4,10 @@
   "item.minecraft.lingering_potion.effect.glowing": "Lingering Potion of Glowing",
   "item.minecraft.potion.effect.long_glowing": "Long Potion of Glowing",
   "item.minecraft.splash_potion.effect.long_glowing": "Long Splash Potion of Glowing",
-  "item.minecraft.lingering_potion.effect.long_glowing": "Long Lingering Potion of Glowing"
+  "item.minecraft.lingering_potion.effect.long_glowing": "Long Lingering Potion of Glowing",
+  "berryglow.config.title": "BerryGlow Config",
+  "berryglow.config.enableGlowBerryEffect": "Glow Berry Effect",
+  "berryglow.config.glowBerryDurationSeconds": "Glow Berry Duration: %ss",
+  "berryglow.config.enableGlowingPotions": "Glowing Potions",
+  "berryglow.config.enableGlowingSpectralArrows": "Glowing Spectral Arrows"
 }

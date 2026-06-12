@@ -17,6 +17,9 @@
 		],
 		"client": [
 			"com.berryglow.client.BerryGlowClient"
+		],
+		"modmenu": [
+			"com.berryglow.client.BerryGlowModMenu"
 		]
 	},
 	"mixins": [
