@@ -5,6 +5,7 @@
 	"mixins": [
 		"GlowBerryEatMixin",
 		"GlowingParticleColorMixin",
+		"GlowingPotionBrewingMixin",
 		"GlowingPotionColorMixin",
 		"TippedArrowGlowingExclusionMixin"
 	],
