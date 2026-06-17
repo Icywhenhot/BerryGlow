@@ -1,6 +1,5 @@
 package com.berryglow.mixin;
 
-import com.berryglow.BerryGlow;
 import com.berryglow.recipe.GlowingSpectralArrowRecipe;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.TippedArrowRecipe;
@@ -11,10 +10,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 // The vanilla tipped-arrow recipe turns any lingering potion + 8 arrows into tipped
-// arrows. Since our glowing potion is a real potion, that would produce "Arrow of
-// Glowing" and shadow our spectral-arrow recipe. When our spectral-arrow feature is
-// active, refuse the vanilla recipe for glowing lingering potions so only
-// GlowingSpectralArrowRecipe matches. Every other potion still tips arrows normally.
+// arrows. Since our glowing potion is a real potion, that would produce an "Arrow of
+// Glowing" — an item we never want to exist. Unconditionally refuse the vanilla recipe
+// for glowing lingering potions so it can never be crafted: when our spectral-arrow
+// feature is on, GlowingSpectralArrowRecipe handles them instead; when it is off,
+// nothing is craftable from them. Every other potion still tips arrows normally.
 @Mixin(TippedArrowRecipe.class)
 public class TippedArrowGlowingExclusionMixin {
 	@Inject(
@@ -23,10 +23,6 @@ public class TippedArrowGlowingExclusionMixin {
 		cancellable = true
 	)
 	private void berryglow$rejectGlowingPotion(CraftingInput input, Level level, CallbackInfoReturnable<Boolean> cir) {
-		if (!BerryGlow.CONFIG.enableGlowingPotions() || !BerryGlow.CONFIG.enableGlowingSpectralArrows()) {
-			return;
-		}
-
 		if (input.width() != 3 || input.height() != 3) {
 			return;
 		}

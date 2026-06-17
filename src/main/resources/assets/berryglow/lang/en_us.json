@@ -5,9 +5,12 @@
   "item.minecraft.potion.effect.long_glowing": "Long Potion of Glowing",
   "item.minecraft.splash_potion.effect.long_glowing": "Long Splash Potion of Glowing",
   "item.minecraft.lingering_potion.effect.long_glowing": "Long Lingering Potion of Glowing",
-  "berryglow.config.title": "BerryGlow Config",
+  "berryglow.config.title": "BerryGlow Options",
   "berryglow.config.enableGlowBerryEffect": "Glow Berry Effect",
+  "berryglow.config.enableGlowBerryEffect.tooltip": "Glow berries give Glowing. Disabling this stops the effect.",
   "berryglow.config.glowBerryDurationSeconds": "Glow Berry Duration: %ss",
   "berryglow.config.enableGlowingPotions": "Glowing Potions",
-  "berryglow.config.enableGlowingSpectralArrows": "Glowing Spectral Arrows"
+  "berryglow.config.enableGlowingPotions.tooltip": "Disabling this stops crafting. Existing potions still work. Requires restarting Minecraft.",
+  "berryglow.config.enableGlowingSpectralArrows": "Glowing Spectral Arrows",
+  "berryglow.config.enableGlowingSpectralArrows.tooltip": "Allows crafting Spectral Arrows using Lingering Glowing Potions. Disabling this stops the recipe."
 }
