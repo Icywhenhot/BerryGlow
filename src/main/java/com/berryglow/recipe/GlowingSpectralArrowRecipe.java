@@ -17,7 +17,7 @@ public class GlowingSpectralArrowRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(CraftingInput input, Level level) {
-		if (!BerryGlow.CONFIG.enableGlowingPotions() || !BerryGlow.CONFIG.enableGlowingSpectralArrows()) {
+		if (!BerryGlow.CONFIG.enableGlowingSpectralArrows()) {
 			return false;
 		}
 

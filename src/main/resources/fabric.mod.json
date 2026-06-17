@@ -3,9 +3,9 @@
 	"id": "berryglow",
 	"version": "${version}",
 	"name": "BerryGlow",
-	"description": "BerryGlow makes Glow Berries give players a short Glowing effect when eaten and adds potions of glowing!",
+	"description": "Glow Berries now give Glowing effect plus more glowing features",
 	"authors": [
-		"OrkaDC, Icywhenhot"
+		"OrkaMC, Icywhenhot"
 	],
 	"contact": {},
 	"license": "CC-BY-NC-SA 4.0",

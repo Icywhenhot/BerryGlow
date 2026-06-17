@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -45,6 +46,7 @@ public class BerryGlowConfigScreen extends Screen {
 		int y = 48;
 
 		addRenderableWidget(CycleButton.onOffBuilder(this.enableGlowBerryEffect)
+			.withTooltip(value -> Tooltip.create(Component.translatable("berryglow.config.enableGlowBerryEffect.tooltip")))
 			.create(x, y, WIDGET_WIDTH, WIDGET_HEIGHT,
 				Component.translatable("berryglow.config.enableGlowBerryEffect"),
 				(button, value) -> this.enableGlowBerryEffect = value));
@@ -54,12 +56,14 @@ public class BerryGlowConfigScreen extends Screen {
 		y += ROW_SPACING;
 
 		addRenderableWidget(CycleButton.onOffBuilder(this.enableGlowingPotions)
+			.withTooltip(value -> Tooltip.create(Component.translatable("berryglow.config.enableGlowingPotions.tooltip")))
 			.create(x, y, WIDGET_WIDTH, WIDGET_HEIGHT,
 				Component.translatable("berryglow.config.enableGlowingPotions"),
 				(button, value) -> this.enableGlowingPotions = value));
 		y += ROW_SPACING;
 
 		addRenderableWidget(CycleButton.onOffBuilder(this.enableGlowingSpectralArrows)
+			.withTooltip(value -> Tooltip.create(Component.translatable("berryglow.config.enableGlowingSpectralArrows.tooltip")))
 			.create(x, y, WIDGET_WIDTH, WIDGET_HEIGHT,
 				Component.translatable("berryglow.config.enableGlowingSpectralArrows"),
 				(button, value) -> this.enableGlowingSpectralArrows = value));
