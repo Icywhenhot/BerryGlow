@@ -9,7 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -43,7 +43,7 @@ public class BerryGlow implements ModInitializer {
 	public static final Holder.Reference<Potion> LONG_GLOWING_POTION = registerPotion("long_glowing", LONG_GLOWING_POTION_DURATION_TICKS);
 	public static final RecipeSerializer<GlowingSpectralArrowRecipe> GLOWING_SPECTRAL_ARROW_RECIPE_SERIALIZER = Registry.register(
 		BuiltInRegistries.RECIPE_SERIALIZER,
-		Identifier.fromNamespaceAndPath(MOD_ID, "glowing_spectral_arrow"),
+		ResourceLocation.fromNamespaceAndPath(MOD_ID, "glowing_spectral_arrow"),
 		new CustomRecipe.Serializer<>(GlowingSpectralArrowRecipe::new)
 	);
 
@@ -91,7 +91,7 @@ public class BerryGlow implements ModInitializer {
 	private static Holder.Reference<Potion> registerPotion(String id, int durationTicks) {
 		return Registry.registerForHolder(
 			BuiltInRegistries.POTION,
-			Identifier.fromNamespaceAndPath(MOD_ID, id),
+			ResourceLocation.fromNamespaceAndPath(MOD_ID, id),
 			new Potion(id, new MobEffectInstance(MobEffects.GLOWING, durationTicks))
 		);
 	}
